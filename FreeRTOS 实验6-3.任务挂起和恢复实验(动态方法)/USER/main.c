@@ -128,6 +128,9 @@ void key_task(void *pvParamters)
         {
             case WKUP_PRES:
                 vTaskSuspend(Task1Task_Handler);
+                POINT_COLOR = BLACK;
+                LCD_DrawLine(5, 140, 95, 230);
+                LCD_DrawLine(95, 140, 5, 230);
                 printf("Taks1 Suspend!\r\n");
                 break;
 
@@ -138,6 +141,9 @@ void key_task(void *pvParamters)
 
             case KEY2_PRES:
                 vTaskSuspend(Task2Task_Handler);
+                POINT_COLOR = BLACK;
+                LCD_DrawLine(125, 140, 215, 230);
+                LCD_DrawLine(215, 140, 125, 230);
                 printf("Taks2 Suspend!\r\n");
                 break;
 
