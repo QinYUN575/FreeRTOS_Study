@@ -139,6 +139,7 @@ void task1_task(void *pvParamters)
 void list_task(void *pvParamters)
 {
     /* 第一步: 初始化 列表&&列表项 */
+    printf("Step 1:\r\n");
     vListInitialise(&TestList);
     vListInitialiseItem(&listItem1);
     vListInitialiseItem(&listItem2);
@@ -151,12 +152,13 @@ void list_task(void *pvParamters)
 
     /* print list && listitem memory address. */
     /* 第二步: 打印列表和其他列表项的地址*/
-    printf("\r\n");
+    printf("Step 2:\r\n");
     printf("/****************** List and ListItem Address ******************/\r\n");
     printf("Item                            Address \r\n");
     printf("TestList                        %#X     \r\n", (int)&TestList);
+    printf("TestList->uxNumberOfItems       %2d     \r\n", (TestList.uxNumberOfItems));
     printf("TestList->pxIndex               %#X     \r\n", (int)&TestList.pxIndex);
-    printf("TestList->xListEnd              %#X     \r\n", (int)&TestList.xListEnd);
+    printf("TestList->xListEnd              %#X     \r\n", (int)&(TestList.xListEnd));
     printf("listItem1                       %#X     \r\n", (int)&listItem1);
     printf("listItem2                       %#X     \r\n", (int)&listItem2);
     printf("listItem3                       %#X     \r\n", (int)&listItem3);
@@ -172,16 +174,16 @@ void list_task(void *pvParamters)
      * 第三步: 向列表 TestList 添加列表项 listItem1, 并通过串口打印所有列表项中的
      * 成员 pxNext 和 pxPrevious 的值,通过这两个值观察列表项在列表中的连接情况.
      */
-    printf("\r\n");
+    printf("Step 3:\r\n");
     vListInsert(&TestList, &listItem1);
     printf("/****************** add ListItem listItem1 ******************/\r\n");
     printf("Item                            Address \r\n");
-    printf("TestList                        %#X     \r\n", (int)&TestList);
-    printf("TestList->pxIndex->pxNext       %#X     \r\n", (int)&TestList.xListEnd.pxNext);
-    printf("listItem1->pxNext               %#X     \r\n", (int)&listItem1.pxNext);
+    printf("TestList->uxNumberOfItems       %2d     \r\n", TestList.uxNumberOfItems);
+    printf("TestList->pxIndex->pxNext       %#X     \r\n", (int)(TestList.xListEnd.pxNext));
+    printf("listItem1->pxNext               %#X     \r\n", (int)(listItem1.pxNext));
     printf("\r\n");
-    printf("TestList.xListEnd.pxPrevious    %#X     \r\n", (int)&TestList.xListEnd.pxPrevious);
-    printf("listItem1.pxPrevious            %#X     \r\n", (int)&listItem1.pxPrevious);
+    printf("TestList.xListEnd.pxPrevious    %#X     \r\n", (int)(TestList.xListEnd.pxPrevious));
+    printf("listItem1.pxPrevious            %#X     \r\n", (int)(listItem1.pxPrevious));
     printf("/******************           END         **********************/\r\n");
     printf("\r\n");
 
@@ -194,24 +196,104 @@ void list_task(void *pvParamters)
      * 第四步: 向列表 TestList 添加列表项 listItem2, 并通过串口打印所有列表项中的
      * 成员 pxNext 和 pxPrevious 的值,通过这两个值观察列表项在列表中的连接情况.
      */
-    printf("\r\n");
+    printf("Step 4:\r\n");
     vListInsert(&TestList, &listItem2);
-    printf("/****************** add ListItem listItem1 ******************/\r\n");
+    printf("/****************** add ListItem listItem2 ******************/\r\n");
     printf("Item                            Address \r\n");
-    printf("TestList                        %#X     \r\n", (int)&TestList);
-    printf("TestList->pxIndex->pxNext       %#X     \r\n", (int)&TestList.xListEnd.pxNext);
-    printf("listItem1->pxNext               %#X     \r\n", (int)&listItem1.pxNext);
-    printf("listItem2->pxNext               %#X     \r\n", (int)&listItem2.pxNext);
+    printf("TestList->uxNumberOfItems       %2d     \r\n", (TestList.uxNumberOfItems));
+    printf("TestList->pxIndex->pxNext       %#X     \r\n", (int)(TestList.xListEnd.pxNext));
+    printf("listItem1->pxNext               %#X     \r\n", (int)(listItem1.pxNext));
+    printf("listItem2->pxNext               %#X     \r\n", (int)(listItem2.pxNext));
     printf("\r\n");
-    printf("TestList.xListEnd.pxPrevious    %#X     \r\n", (int)&TestList.xListEnd.pxPrevious);
-    printf("listItem1.pxPrevious            %#X     \r\n", (int)&listItem1.pxPrevious);
-    printf("listItem2.pxPrevious            %#X     \r\n", (int)&listItem2.pxPrevious);
+    printf("TestList.xListEnd.pxPrevious    %#X     \r\n", (int)(TestList.xListEnd.pxPrevious));
+    printf("listItem1.pxPrevious            %#X     \r\n", (int)(listItem1.pxPrevious));
+    printf("listItem2.pxPrevious            %#X     \r\n", (int)(listItem2.pxPrevious));
     printf("/******************           END         **********************/\r\n");
     printf("\r\n");
 
     printf("Press the KEY_UP to continue.\r\n");
     while (KEY_Scan(0)!= WKUP_PRES) delay_ms(10);
     printf("\r\n");
+
+    /* print list && listitem memory address. */
+    /**
+     * 第五步: 向列表 TestList 添加列表项 listItem3, 并通过串口打印所有列表项中的
+     * 成员 pxNext 和 pxPrevious 的值,通过这两个值观察列表项在列表中的连接情况.
+     */
+    printf("Step 5:\r\n");
+    vListInsert(&TestList, &listItem3);
+    printf("/****************** add ListItem listItem3 ******************/\r\n");
+    printf("Item                            Address \r\n");
+    printf("TestList->uxNumberOfItems       %2d     \r\n", (TestList.uxNumberOfItems));
+    printf("TestList->pxIndex->pxNext       %#X     \r\n", (int)(TestList.xListEnd.pxNext));
+    printf("listItem1->pxNext               %#X     \r\n", (int)listItem1.pxNext);
+    printf("listItem2->pxNext               %#X     \r\n", (int)listItem2.pxNext);
+    printf("listItem3->pxNext               %#X     \r\n", (int)listItem3.pxNext);
+    printf("\r\n");
+    printf("TestList.xListEnd.pxPrevious    %#X     \r\n", (int)(TestList.xListEnd.pxPrevious));
+    printf("listItem1.pxPrevious            %#X     \r\n", (int)(listItem1.pxPrevious));
+    printf("listItem2.pxPrevious            %#X     \r\n", (int)(listItem2.pxPrevious));
+    printf("listItem3.pxPrevious            %#X     \r\n", (int)(listItem3.pxPrevious));
+    printf("/******************           END         **********************/\r\n");
+    printf("\r\n");
+
+    printf("Press the KEY_UP to continue.\r\n");
+    while (KEY_Scan(0)!= WKUP_PRES) delay_ms(10);
+    printf("\r\n");
+
+    /* print list && listitem memory address. */
+    /**
+     * 第六步: 向列表 TestList 删除列表项 listItem2, 并通过串口打印所有列表项中的
+     * 成员 pxNext 和 pxPrevious 的值,通过这两个值观察列表项在列表中的连接情况.
+     */
+    printf("Step 6:\r\n");
+    uxListRemove(&listItem2);
+    printf("/**************** remove ListItem listItem2 ***************/\r\n");
+    printf("Item                            Address \r\n");
+    printf("TestList->uxNumberOfItems       %2d     \r\n", TestList.uxNumberOfItems);
+    printf("TestList->pxIndex->pxNext       %#X     \r\n", (int)&TestList.xListEnd.pxNext);
+    printf("listItem1->pxNext               %#X     \r\n", (int)&listItem1.pxNext);
+    printf("listItem3->pxNext               %#X     \r\n", (int)&listItem3.pxNext);
+    printf("\r\n");
+    printf("TestList.xListEnd.pxPrevious    %#X     \r\n", (int)&TestList.xListEnd.pxPrevious);
+    printf("listItem1.pxPrevious            %#X     \r\n", (int)&listItem1.pxPrevious);
+    printf("listItem3.pxPrevious            %#X     \r\n", (int)&listItem3.pxPrevious);
+    printf("/******************           END         **********************/\r\n");
+    printf("\r\n");
+
+    printf("Press the KEY_UP to continue.\r\n");
+    while (KEY_Scan(0)!= WKUP_PRES) delay_ms(10);
+    printf("\r\n");
+
+    /* print list && listitem memory address. */
+    /**
+     * 第七步: 向列表 TestList 删除列表项 listItem2, 并通过串口打印所有列表项中的
+     * 成员 pxNext 和 pxPrevious 的值,通过这两个值观察列表项在列表中的连接情况.
+     */
+    printf("Step 7:\r\n");
+     /**
+      * pxIndex 向后移动一项, 这样 pxIndex 就会指向 listItem1 */
+    TestList.pxIndex = TestList.pxIndex->pxNext;
+    vListInsertEnd(&TestList, &listItem2);
+    printf("/****************** add ListItem listItem2 ******************/\r\n");
+    printf("Item                            Address \r\n");
+    printf("TestList->uxNumberOfItems       %2d     \r\n", TestList.uxNumberOfItems);
+    printf("TestList->pxIndex->pxNext       %#X     \r\n", (int)&TestList.xListEnd.pxNext);
+    printf("listItem1->pxNext               %#X     \r\n", (int)&listItem1.pxNext);
+    printf("listItem2.pxPrevious            %#X     \r\n", (int)&listItem2.pxPrevious);
+    printf("listItem3->pxNext               %#X     \r\n", (int)&listItem3.pxNext);
+    printf("\r\n");
+    printf("TestList.xListEnd.pxPrevious    %#X     \r\n", (int)&TestList.xListEnd.pxPrevious);
+    printf("listItem1.pxPrevious            %#X     \r\n", (int)&listItem1.pxPrevious);
+    printf("listItem2.pxPrevious            %#X     \r\n", (int)&listItem2.pxPrevious);
+    printf("listItem3.pxPrevious            %#X     \r\n", (int)&listItem3.pxPrevious);
+    printf("/******************           END         **********************/\r\n");
+    printf("\r\n");
+
+    printf("Press the KEY_UP to continue.\r\n");
+    while (KEY_Scan(0)!= WKUP_PRES) delay_ms(10);
+    printf("\r\n");
+
 
     while (1)
     {
