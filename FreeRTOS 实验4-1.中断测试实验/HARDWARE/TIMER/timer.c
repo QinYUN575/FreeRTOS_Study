@@ -2,45 +2,45 @@
 #include "led.h"
 #include "usart.h"
 
-TIM_HandleTypeDef TIM3_Handler; /* ¶¨Ê±Æ÷¾ä±ú */
-TIM_HandleTypeDef TIM5_Handler; /* ¶¨Ê±Æ÷¾ä±ú */
+TIM_HandleTypeDef TIM3_Handler; /* å®šæ—¶å™¨å¥æŸ„ */
+TIM_HandleTypeDef TIM5_Handler; /* å®šæ—¶å™¨å¥æŸ„ */
 
 void TIM3_Init(uint16_t arr, uint16_t psc)
 {
-    TIM3_Handler.Instance = TIM3;                               /* Í¨ÓÃ¶¨Ê±Æ÷3 */
-    TIM3_Handler.Init.Prescaler = psc;                          /* ·ÖÆµÏµÊı */
-    TIM3_Handler.Init.CounterMode = TIM_COUNTERMODE_UP;         /* ÏòÉÏ¼ÆÊıÆ÷ */
-    TIM3_Handler.Init.Period = arr;                             /* ×Ô¶¯ÖØ×°ÔØÖµ */
-    TIM3_Handler.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;   /* Ê±ÖÓ·ÖÆµÒò×Ó */
-    HAL_TIM_Base_Init(&TIM3_Handler);                           /* ÅäÖÃ²ÎÊı */
+    TIM3_Handler.Instance = TIM3;                               /* é€šç”¨å®šæ—¶å™¨3 */
+    TIM3_Handler.Init.Prescaler = psc;                          /* åˆ†é¢‘ç³»æ•° */
+    TIM3_Handler.Init.CounterMode = TIM_COUNTERMODE_UP;         /* å‘ä¸Šè®¡æ•°å™¨ */
+    TIM3_Handler.Init.Period = arr;                             /* è‡ªåŠ¨é‡è£…è½½å€¼ */
+    TIM3_Handler.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;   /* æ—¶é’Ÿåˆ†é¢‘å› å­ */
+    HAL_TIM_Base_Init(&TIM3_Handler);                           /* é…ç½®å‚æ•° */
 
-    HAL_TIM_Base_Start_IT(&TIM3_Handler);                       /* Ê¹ÄÜ¶¨Ê±Æ÷ºÍ¶¨Ê±Æ÷¸üĞÂÖĞ¶Ï */
+    HAL_TIM_Base_Start_IT(&TIM3_Handler);                       /* ä½¿èƒ½å®šæ—¶å™¨å’Œå®šæ—¶å™¨æ›´æ–°ä¸­æ–­ */
 }
 
 void TIM5_Init(uint16_t arr, uint16_t psc)
 {
-    TIM5_Handler.Instance = TIM5;                               /* Í¨ÓÃ¶¨Ê±Æ÷3 */
-    TIM5_Handler.Init.Prescaler = psc;                          /* ·ÖÆµÏµÊı */
-    TIM5_Handler.Init.CounterMode = TIM_COUNTERMODE_UP;         /* ÏòÉÏ¼ÆÊıÆ÷ */
-    TIM5_Handler.Init.Period = arr;                             /* ×Ô¶¯ÖØ×°ÔØÖµ */
-    TIM5_Handler.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;   /* Ê±ÖÓ·ÖÆµÒò×Ó */
-    HAL_TIM_Base_Init(&TIM5_Handler);                           /* ÅäÖÃ²ÎÊı */
+    TIM5_Handler.Instance = TIM5;                               /* é€šç”¨å®šæ—¶å™¨3 */
+    TIM5_Handler.Init.Prescaler = psc;                          /* åˆ†é¢‘ç³»æ•° */
+    TIM5_Handler.Init.CounterMode = TIM_COUNTERMODE_UP;         /* å‘ä¸Šè®¡æ•°å™¨ */
+    TIM5_Handler.Init.Period = arr;                             /* è‡ªåŠ¨é‡è£…è½½å€¼ */
+    TIM5_Handler.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;   /* æ—¶é’Ÿåˆ†é¢‘å› å­ */
+    HAL_TIM_Base_Init(&TIM5_Handler);                           /* é…ç½®å‚æ•° */
 
-    HAL_TIM_Base_Start_IT(&TIM5_Handler);                       /* Ê¹ÄÜ¶¨Ê±Æ÷ºÍ¶¨Ê±Æ÷¸üĞÂÖĞ¶Ï */
+    HAL_TIM_Base_Start_IT(&TIM5_Handler);                       /* ä½¿èƒ½å®šæ—¶å™¨å’Œå®šæ—¶å™¨æ›´æ–°ä¸­æ–­ */
 }
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
 {
     if (htim->Instance == TIM3)
     {
-        __HAL_RCC_TIM3_CLK_ENABLE();            /* Ê¹ÄÜ TIM3 Ê±ÖÓ */
-        HAL_NVIC_SetPriority(TIM3_IRQn, 4, 0);  /* ÉèÖÃÖĞ¶ÏÓÅÏÈ¼¶,ÇÀÕ¼ÓÅÏÈ¼¶ 4, ×ÓÓÅÏÈ¼¶0*/
-        HAL_NVIC_EnableIRQ(TIM3_IRQn);          /* ¿ªÆô TIM3 ÖĞ¶Ï */
+        __HAL_RCC_TIM3_CLK_ENABLE();            /* ä½¿èƒ½ TIM3 æ—¶é’Ÿ */
+        HAL_NVIC_SetPriority(TIM3_IRQn, 4, 0);  /* è®¾ç½®ä¸­æ–­ä¼˜å…ˆçº§,æŠ¢å ä¼˜å…ˆçº§ 4, å­ä¼˜å…ˆçº§0*/
+        HAL_NVIC_EnableIRQ(TIM3_IRQn);          /* å¼€å¯ TIM3 ä¸­æ–­ */
     } else if (htim->Instance == TIM5)
     {
-        __HAL_RCC_TIM5_CLK_ENABLE();            /* Ê¹ÄÜ TIM5 Ê±ÖÓ */
-        HAL_NVIC_SetPriority(TIM5_IRQn, 5, 0);  /* ÉèÖÃÖĞ¶ÏÓÅÏÈ¼¶,ÇÀÕ¼ÓÅÏÈ¼¶ 5, ×ÓÓÅÏÈ¼¶0*/
-        HAL_NVIC_EnableIRQ(TIM5_IRQn);          /* ¿ªÆô TIM5 ÖĞ¶Ï */
+        __HAL_RCC_TIM5_CLK_ENABLE();            /* ä½¿èƒ½ TIM5 æ—¶é’Ÿ */
+        HAL_NVIC_SetPriority(TIM5_IRQn, 5, 0);  /* è®¾ç½®ä¸­æ–­ä¼˜å…ˆçº§,æŠ¢å ä¼˜å…ˆçº§ 5, å­ä¼˜å…ˆçº§0*/
+        HAL_NVIC_EnableIRQ(TIM5_IRQn);          /* å¼€å¯ TIM5 ä¸­æ–­ */
     }
 }
 
@@ -58,10 +58,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if ((&TIM3_Handler)==htim)
     {
-        printf("TIM3 Êä³ö....\r\n");
+        printf("TIM3 è¾“å‡º....\r\n");
     }
     else if ((&TIM5_Handler)==htim)
     {
-        printf("TIM5 Êä³ö....\r\n");
+        printf("TIM5 è¾“å‡º....\r\n");
     }
 }

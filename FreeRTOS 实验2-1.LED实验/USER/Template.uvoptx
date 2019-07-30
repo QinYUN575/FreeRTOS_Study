@@ -152,34 +152,34 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>33</LineNumber>
+          <LineNumber>128</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134226156</Address>
+          <Address>134230738</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\0.Code\3.IOT\2.ALIENTEK\瀹為獙0-2 Template宸ョ▼妯℃澘-璋冭瘯绔犺妭浣跨敤\USER\main.c</Filename>
+          <Filename>D:\FreeRTOS\FreeRTOS_STM32L4\FreeRTOS Project\FreeRTOS 瀹為獙2-1.LED瀹為獙\USER\main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Template\main.c\33</Expression>
+          <Expression>\\Template\main.c\128</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>39</LineNumber>
+          <LineNumber>0</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134226182</Address>
+          <Address>134230748</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>E:\0.Code\3.IOT\2.ALIENTEK\瀹為獙0-2 Template宸ョ▼妯℃澘-璋冭瘯绔犺妭浣跨敤\USER\main.c</Filename>
+          <Filename></Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Template\main.c\39</Expression>
+          <Expression>0x080032DC</Expression>
         </Bp>
       </Breakpoint>
       <Tracepoint>
@@ -224,12 +224,6 @@
       <pszMrulep></pszMrulep>
       <pSingCmdsp></pSingCmdsp>
       <pMultCmdsp></pMultCmdsp>
-      <SystemViewers>
-        <Entry>
-          <Name>System Viewer\USART1</Name>
-          <WinId>35905</WinId>
-        </Entry>
-      </SystemViewers>
       <DebugDescription>
         <Enable>1</Enable>
         <EnableFlashSeq>1</EnableFlashSeq>
@@ -298,7 +292,7 @@
 
   <Group>
     <GroupName>SYSTEM</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1602,7 +1596,7 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>111</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\FreeRTOS\event_groups.c</PathWithFileName>

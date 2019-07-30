@@ -9,24 +9,24 @@
 			\_| |_/\_____/\___/ \____/ \_| \_/  \_/  \____/ \_| \_/
 
  *	******************************************************************************
- *	������ֻ��ѧϰʹ�ã�δ���������ɣ��������������κ���;
- *	ALIENTEK Pandora STM32L475 IOT������
- *	ϵͳʱ�ӳ�ʼ��
- *	����ʱ������/�жϹ���/GPIO���õ�
- *	����ԭ��@ALIENTEK
- *	������̳:www.openedv.com
- *	��������:2016/1/5
- *	�汾��V1.0
- *	��Ȩ���У�����ؾ���
- *	Copyright(C) �������������ӿƼ����޹�˾ 2014-2024
+ *	本程序只供学习使用，未经作者许可，不得用于其它任何用途
+ *	ALIENTEK Pandora STM32L475 IOT开发板
+ *	系统时钟初始化
+ *	包括时钟设置/中断管理/GPIO设置等
+ *	正点原子@ALIENTEK
+ *	技术论坛:www.openedv.com
+ *	创建日期:2016/1/5
+ *	版本：V1.0
+ *	版权所有，盗版必究。
+ *	Copyright(C) 广州市星翼电子科技有限公司 2014-2024
  *	All rights reserved
  *	******************************************************************************
- *	�汾�޸�˵��
- *	��
+ *	版本修改说明
+ *	无
  *	******************************************************************************/
 
 /**
- * @brief	ʱ��ϵͳ���ú���
+ * @brief	时钟系统配置函数
  *
  * @remark	SYSCLK = HSE / PLLM * PLLN / PLLR
  * 			SYSCLK = 8M  /   1  *  20  /2		= 	80M
@@ -42,7 +42,7 @@ void SystemClock_Config(void)
     RCC_OscInitTypeDef RCC_OscInitStruct;
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
 
-    __HAL_RCC_PWR_CLK_ENABLE(); //ʹ��PWRʱ��
+    __HAL_RCC_PWR_CLK_ENABLE(); //使能PWR时钟
 
     /*Initializes the CPU, AHB and APB busses clocks*/
     RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
@@ -79,8 +79,8 @@ void SystemClock_Config(void)
 }
 
 /**
- * @brief	THUMBָ�֧�ֻ��������
- *			�������·���ʵ��ִ�л��ָ��WFI 
+ * @brief	THUMB指令不支持汇编内联、
+ *			采用如下方法实现执行汇编指令WFI 
  *
  * @param   void
  *
@@ -91,7 +91,7 @@ __asm void WFI_SET(void)
 	WFI;		  
 }
 /**
- * @brief	�ر������ж�(���ǲ�����fault��NMI�ж�)
+ * @brief	关闭所有中断(但是不包括fault和NMI中断)
  *
  * @param   void
  *
@@ -103,7 +103,7 @@ __asm void INTX_DISABLE(void)
 	BX      LR	  
 }
 /**
- * @brief	���������ж�
+ * @brief	开启所有中断
  *
  * @param   void
  *
@@ -115,9 +115,9 @@ __asm void INTX_ENABLE(void)
 	BX      LR  
 }
 /**
- * @brief	����ջ����ַ
+ * @brief	设置栈顶地址
  *
- * @param   addr	ջ����ַ
+ * @param   addr	栈顶地址
  *
  * @return  __asm
  */

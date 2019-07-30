@@ -1,39 +1,39 @@
-ÊµÑéÆ÷²Ä:
-	ÅË¶àÀ­STM32L4 IOT¿ª·¢°å 
+å®éªŒå™¨æ:
+	æ½˜å¤šæ‹‰STM32L4 IOTå¼€å‘æ¿ 
 	
-ÊµÑéÄ¿µÄ:
-	±¾ÊµÑéÎªĞÂ½¨¹¤³ÌÊµÑé£¬½ö¹©´ó¼ÒĞÂ½¨¹¤³ÌÊ±²Î¿¼¡£
-	ĞÂ½¨¹¤³ÌÏêÏ¸²½Öè£¬Çë¿´¡¶STM32L4¿ª·¢Ö¸ÄÏ-HAL°æ±¾¡·µÚ3.3½Ú¡£
+å®éªŒç›®çš„:
+	æœ¬å®éªŒä¸ºæ–°å»ºå·¥ç¨‹å®éªŒï¼Œä»…ä¾›å¤§å®¶æ–°å»ºå·¥ç¨‹æ—¶å‚è€ƒã€‚
+	æ–°å»ºå·¥ç¨‹è¯¦ç»†æ­¥éª¤ï¼Œè¯·çœ‹ã€ŠSTM32L4å¼€å‘æŒ‡å—-HALç‰ˆæœ¬ã€‹ç¬¬3.3èŠ‚ã€‚
 	
-Ó²¼ş×ÊÔ´:
-	1,ÅË¶àÀ­STM32L4¿ª·¢°å
+ç¡¬ä»¶èµ„æº:
+	1,æ½˜å¤šæ‹‰STM32L4å¼€å‘æ¿
 	
-ÊµÑéÏÖÏó:
-	±¾ÊµÑéÏÂÔØºó£¬RGBºìÉ«µÆÉÁË¸¡£ 
+å®éªŒç°è±¡:
+	æœ¬å®éªŒä¸‹è½½åï¼ŒRGBçº¢è‰²ç¯é—ªçƒã€‚ 
 
-¹¤³ÌÎÄ¼şÀ´Ô´£º
+å·¥ç¨‹æ–‡ä»¶æ¥æºï¼š
 
-¢ÙHAL¿âÎÄ¼ş                                                                 ->   \STM32Cube_FW_L4_V1.13.0\Drivers\STM32L4xx_HAL_Driver
-¢Ústartup_stm32l475xx.s                                                     ->   \STM32Cube_FW_L4_V1.13.0\Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\arm
-¢Ûcmsis_armcc.h£¬core_cm4.h£¬core_cmFunc.h£¬core_cmInstr.h £¬core_cmSimd.h  ->   \STM32Cube_FW_L4_V1.13.0\Drivers\CMSIS\Include
+â‘ HALåº“æ–‡ä»¶                                                                 ->   \STM32Cube_FW_L4_V1.13.0\Drivers\STM32L4xx_HAL_Driver
+â‘¡startup_stm32l475xx.s                                                     ->   \STM32Cube_FW_L4_V1.13.0\Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\arm
+â‘¢cmsis_armcc.hï¼Œcore_cm4.hï¼Œcore_cmFunc.hï¼Œcore_cmInstr.h ï¼Œcore_cmSimd.h  ->   \STM32Cube_FW_L4_V1.13.0\Drivers\CMSIS\Include
 
-¢Üstm32l4xx.h£¬system_stm32l4xx.h,stm32l4xx_hal_msp.cºÍstm32l475xx.         ->   \STM32Cube_FW_L4_V1.13.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include
+â‘£stm32l4xx.hï¼Œsystem_stm32l4xx.h,stm32l4xx_hal_msp.cå’Œstm32l475xx.         ->   \STM32Cube_FW_L4_V1.13.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include
 
-¢İstm32l4xx_it.h£¬stm32l4xx_hal_conf.h ºÍmain.h                             ->   \STM32Cube_FW_L4_V1.13.0\Projects\B-L475E-IOT01A\Templates\Inc
-¢Şsystem_stm32l4xx.c£¬stm32l4xx_it.cºÍmain.c          			    ->   \STM32Cube_FW_L4_V1.13.0\Projects\B-L475E-IOT01A\Templates\Scr
+â‘¤stm32l4xx_it.hï¼Œstm32l4xx_hal_conf.h å’Œmain.h                             ->   \STM32Cube_FW_L4_V1.13.0\Projects\B-L475E-IOT01A\Templates\Inc
+â‘¥system_stm32l4xx.cï¼Œstm32l4xx_it.cå’Œmain.c          			    ->   \STM32Cube_FW_L4_V1.13.0\Projects\B-L475E-IOT01A\Templates\Scr
 
-SYSTEMÎÄ¼ş¼Ğ£¬ÈÎºÎÒ»¸öHAL¿âÊµÑé¹¤³ÌÖĞÓĞ
+SYSTEMæ–‡ä»¶å¤¹ï¼Œä»»ä½•ä¸€ä¸ªHALåº“å®éªŒå·¥ç¨‹ä¸­æœ‰
 	
-×¢ÒâÊÂÏî:
-	ÎŞ.
+æ³¨æ„äº‹é¡¹:
+	æ— .
 
 
-					ÕıµãÔ­×Ó@ALIENTEK
+					æ­£ç‚¹åŸå­@ALIENTEK
 					2016-6-24
-					¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾
-					µç»°£º020-38271790
-					´«Õæ£º020-36773971
-					¹ºÂò£ºhttp://openedv.taobao.com
+					å¹¿å·å¸‚æ˜Ÿç¿¼ç”µå­ç§‘æŠ€æœ‰é™å…¬å¸
+					ç”µè¯ï¼š020-38271790
+					ä¼ çœŸï¼š020-36773971
+					è´­ä¹°ï¼šhttp://openedv.taobao.com
 					http://eboard.taobao.com
-					¹«Ë¾ÍøÕ¾£ºwww.alientek.com
-					¼¼ÊõÂÛÌ³£ºwww.openedv.com
+					å…¬å¸ç½‘ç«™ï¼šwww.alientek.com
+					æŠ€æœ¯è®ºå›ï¼šwww.openedv.com

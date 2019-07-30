@@ -297,6 +297,7 @@ void list_task(void *pvParamters)
 
     while (1)
     {
+        LED_R_TogglePin();
         vTaskDelay(1000/portTICK_RATE_MS);
     }
 }

@@ -1,9 +1,8 @@
 {
-    "aliosStudio.sdkPath": "C:\\Users\\musk\\.aos\\AliOS-Things",
-    "files.associations": {
-        ".mpyproject.json": "jsonc"
-    },
     "python.autoComplete.extraPaths": [
         "C:\\Users\\musk\\.vscode\\extensions\\rt-thread.rt-thread-micropython-0.1.7\\code-completion"
-    ]
+    ],
+    "files.associations": {
+        ".mpyproject.json": "jsonc"
+    }
 }

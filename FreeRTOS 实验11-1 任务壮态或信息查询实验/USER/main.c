@@ -12,37 +12,37 @@
 #include "list.h"
 
 /********************************************************/
-#define START_TASK_PRIO 1            /* ÈÎÎñÓÅÏÈ¼¶ */
-#define START_STK_SIZE 128           /* ÈÎÎñ¶ÑÕ»´óĞ¡ */
-TaskHandle_t StartTask_Handler;      /* ÈÎÎñ¾ä±ú */
-void start_task(void *pvParameters); /* ÈÎÎñº¯Êı */
+#define START_TASK_PRIO 1            /* ä»»åŠ¡ä¼˜å…ˆçº§ */
+#define START_STK_SIZE 128           /* ä»»åŠ¡å †æ ˆå¤§å° */
+TaskHandle_t StartTask_Handler;      /* ä»»åŠ¡å¥æŸ„ */
+void start_task(void *pvParameters); /* ä»»åŠ¡å‡½æ•° */
 
 /********************************************************/
-#define LED0_TASK_PRIO 2            /* ÈÎÎñÓÅÏÈ¼¶ */
-#define LED0_STK_SIZE 128           /* ÈÎÎñ¶ÑÕ»´óĞ¡ */
-TaskHandle_t Led0Task_Handler;      /* ÈÎÎñ¾ä±ú */
-void led0_task(void *pvParameters); /* ÈÎÎñº¯Êı */
+#define LED0_TASK_PRIO 2            /* ä»»åŠ¡ä¼˜å…ˆçº§ */
+#define LED0_STK_SIZE 128           /* ä»»åŠ¡å †æ ˆå¤§å° */
+TaskHandle_t Led0Task_Handler;      /* ä»»åŠ¡å¥æŸ„ */
+void led0_task(void *pvParameters); /* ä»»åŠ¡å‡½æ•° */
 
 /********************************************************/
-#define QUERY_TASK_PRIO 3           /* ÈÎÎñÓÅÏÈ¼¶ */
-#define QUERY_STK_SIZE 256          /* ÈÎÎñ¶ÑÕ»´óĞ¡ */
-TaskHandle_t QueryTask_Handler;     /* ÈÎÎñ¾ä±ú */
-void query_task(void *pvParamters); /* ÈÎÎñº¯Êı */
+#define QUERY_TASK_PRIO 3           /* ä»»åŠ¡ä¼˜å…ˆçº§ */
+#define QUERY_STK_SIZE 256          /* ä»»åŠ¡å †æ ˆå¤§å° */
+TaskHandle_t QueryTask_Handler;     /* ä»»åŠ¡å¥æŸ„ */
+void query_task(void *pvParamters); /* ä»»åŠ¡å‡½æ•° */
 
 /********************************************************/
-char InfoBuffer[1000]; /* ±£´æĞÅÏ¢µÄÊı×é */
+char InfoBuffer[1000]; /* ä¿å­˜ä¿¡æ¯çš„æ•°ç»„ */
 
 /********************************************************/
 int main(void)
 {
-    HAL_Init();           /* ³õÊ¼»¯HAL¿â */
-    SystemClock_Config(); /* ÉèÖÃÊ±ÖÓ, 80Mhz */
-    delay_init(80);       /* ³õÊ¼»¯ÑÓÊ±º¯Êı */
-    LED_Init();           /* ³õÊ¼»¯LED */
-    uart_init(115200);    /* ³õÊ¼»¯´®¿Ú */
-    KEY_Init();           /* ³õÊ¼»¯°´¼üº¯Êı */
-                          //	SDRAM_Init();					//³õÊ¼»¯SDRAM
-    LCD_Init();           /* ³õÊ¼»¯LCD */
+    HAL_Init();           /* åˆå§‹åŒ–HALåº“ */
+    SystemClock_Config(); /* è®¾ç½®æ—¶é’Ÿ, 80Mhz */
+    delay_init(80);       /* åˆå§‹åŒ–å»¶æ—¶å‡½æ•° */
+    LED_Init();           /* åˆå§‹åŒ–LED */
+    uart_init(115200);    /* åˆå§‹åŒ–ä¸²å£ */
+    KEY_Init();           /* åˆå§‹åŒ–æŒ‰é”®å‡½æ•° */
+    //    SDRAM_Init();   //åˆå§‹åŒ–SDRAM
+    LCD_Init();           /* åˆå§‹åŒ–LCD */
 
     POINT_COLOR = RED;
     LCD_ShowString(0, 0, 240, 32, 32, "Pandora STM32F4");
@@ -62,112 +62,111 @@ int main(void)
     printf("\r\n");
     printf("===========================================================\r\n");
 
-    /* ´´½¨¿ªÊ¼ÈÎÎñ */
-    xTaskCreate((TaskFunction_t)start_task,          /* ÈÎÎñº¯Êı */
-                (const char *)"start_task",          /* ÈÎÎñÃû³Æ */
-                (uint16_t)START_STK_SIZE,            /* ÈÎÎñ¶ÑÕ»´óĞ¡ */
-                (void *)NULL,                        /* ´«µİ¸øÈÎÎñº¯ÊıµÄ²ÎÊı */
-                (UBaseType_t)START_TASK_PRIO,        /* ÈÎÎñÓÅÏÈ¼¶ */
-                (TaskHandle_t *)&StartTask_Handler); /* ÈÎÎñ¾ä±ú */
-    vTaskStartScheduler();                           /* ¿ªÆôÈÎÎñµ÷¶È */
+    /* åˆ›å»ºå¼€å§‹ä»»åŠ¡ */
+    xTaskCreate((TaskFunction_t)start_task,          /* ä»»åŠ¡å‡½æ•° */
+                (const char *)"start_task",          /* ä»»åŠ¡åç§° */
+                (uint16_t)START_STK_SIZE,            /* ä»»åŠ¡å †æ ˆå¤§å° */
+                (void *)NULL,                        /* ä¼ é€’ç»™ä»»åŠ¡å‡½æ•°çš„å‚æ•° */
+                (UBaseType_t)START_TASK_PRIO,        /* ä»»åŠ¡ä¼˜å…ˆçº§ */
+                (TaskHandle_t *)&StartTask_Handler); /* ä»»åŠ¡å¥æŸ„ */
+    vTaskStartScheduler();                           /* å¼€å¯ä»»åŠ¡è°ƒåº¦ */
 }
 
-//¿ªÊ¼ÈÎÎñÈÎÎñº¯Êı
+//å¼€å§‹ä»»åŠ¡ä»»åŠ¡å‡½æ•°
 void start_task(void *pvParameters)
 {
-    taskENTER_CRITICAL(); //½øÈëÁÙ½çÇø
-    //´´½¨LED0ÈÎÎñ
+    taskENTER_CRITICAL(); //è¿›å…¥ä¸´ç•ŒåŒº
+    //åˆ›å»ºLED0ä»»åŠ¡
     xTaskCreate((TaskFunction_t)led0_task,
                 (const char *)"led0_task",
                 (uint16_t)LED0_STK_SIZE,
                 (void *)NULL,
                 (UBaseType_t)LED0_TASK_PRIO,
                 (TaskHandle_t *)&Led0Task_Handler);
-    //´´½¨QUERYÈÎÎñ
+    //åˆ›å»ºQUERYä»»åŠ¡
     xTaskCreate((TaskFunction_t)query_task,
                 (const char *)"query_task",
                 (uint16_t)QUERY_STK_SIZE,
                 (void *)NULL,
                 (UBaseType_t)QUERY_TASK_PRIO,
                 (TaskHandle_t *)&QueryTask_Handler);
-    vTaskDelete(StartTask_Handler); //É¾³ı¿ªÊ¼ÈÎÎñ
-    taskEXIT_CRITICAL();            //ÍË³öÁÙ½çÇø
+    vTaskDelete(StartTask_Handler); //åˆ é™¤å¼€å§‹ä»»åŠ¡
+    taskEXIT_CRITICAL();            //é€€å‡ºä¸´ç•ŒåŒº
 }
 
-//led0ÈÎÎñº¯Êı
+//led0ä»»åŠ¡å‡½æ•°
 void led0_task(void *pvParameters)
 {
-
     while (1)
     {
         LED_B_TogglePin();
-        vTaskDelay(500); //ÑÓÊ±500ms£¬Ò²¾ÍÊÇ500¸öÊ±ÖÓ½ÚÅÄ
+        vTaskDelay(500); //å»¶æ—¶500msï¼Œä¹Ÿå°±æ˜¯500ä¸ªæ—¶é’ŸèŠ‚æ‹
     }
 }
 
-//queryÈÎÎñº¯Êı
+//queryä»»åŠ¡å‡½æ•°
 void query_task(void *pvParameters)
 {
     u32 TotalRunTime;
     UBaseType_t ArraySize, x;
     TaskStatus_t *StatusArray;
 
-    //µÚÒ»²½£ºº¯ÊıuxTaskGetSystemState()µÄÊ¹ÓÃ
-    printf("/********µÚÒ»²½£ºº¯ÊıuxTaskGetSystemState()µÄÊ¹ÓÃ**********/\r\n");
-    ArraySize = uxTaskGetNumberOfTasks();                         //»ñÈ¡ÏµÍ³ÈÎÎñÊıÁ¿
-    StatusArray = pvPortMalloc(ArraySize * sizeof(TaskStatus_t)); //ÉêÇëÄÚ´æ
-    if (StatusArray != NULL)                                      //ÄÚ´æÉêÇë³É¹¦
+    //ç¬¬ä¸€æ­¥ï¼šå‡½æ•°uxTaskGetSystemState()çš„ä½¿ç”¨
+    printf("/********ç¬¬ä¸€æ­¥ï¼šå‡½æ•°uxTaskGetSystemState()çš„ä½¿ç”¨**********/\r\n");
+    ArraySize = uxTaskGetNumberOfTasks();                         //è·å–ç³»ç»Ÿä»»åŠ¡æ•°é‡
+    StatusArray = pvPortMalloc(ArraySize * sizeof(TaskStatus_t)); //ç”³è¯·å†…å­˜
+    if (StatusArray != NULL)                                      //å†…å­˜ç”³è¯·æˆåŠŸ
     {
-        ArraySize = uxTaskGetSystemState((TaskStatus_t *)StatusArray, //ÈÎÎñĞÅÏ¢´æ´¢Êı×é
-                                         (UBaseType_t)ArraySize,      //ÈÎÎñĞÅÏ¢´æ´¢Êı×é´óĞ¡
-                                         (uint32_t *)&TotalRunTime);  //±£´æÏµÍ³×ÜµÄÔËĞĞÊ±¼ä
+        ArraySize = uxTaskGetSystemState((TaskStatus_t *)StatusArray, //ä»»åŠ¡ä¿¡æ¯å­˜å‚¨æ•°ç»„
+                                         (UBaseType_t)ArraySize,      //ä»»åŠ¡ä¿¡æ¯å­˜å‚¨æ•°ç»„å¤§å°
+                                         (uint32_t *)&TotalRunTime);  //ä¿å­˜ç³»ç»Ÿæ€»çš„è¿è¡Œæ—¶é—´
         printf("TaskName\t\tPriority\t\tTaskNumber\t\t\r\n");
         for (x = 0; x < ArraySize; x++)
         {
-            //Í¨¹ı´®¿Ú´òÓ¡³ö»ñÈ¡µ½µÄÏµÍ³ÈÎÎñµÄÓĞ¹ØĞÅÏ¢£¬±ÈÈçÈÎÎñÃû³Æ¡¢
-            //ÈÎÎñÓÅÏÈ¼¶ºÍÈÎÎñ±àºÅ¡£
+            //é€šè¿‡ä¸²å£æ‰“å°å‡ºè·å–åˆ°çš„ç³»ç»Ÿä»»åŠ¡çš„æœ‰å…³ä¿¡æ¯ï¼Œæ¯”å¦‚ä»»åŠ¡åç§°ã€
+            //ä»»åŠ¡ä¼˜å…ˆçº§å’Œä»»åŠ¡ç¼–å·ã€‚
             printf("%s\t\t%d\t\t\t%d\t\t\t\r\n",
                    StatusArray[x].pcTaskName,
                    (int)StatusArray[x].uxCurrentPriority,
                    (int)StatusArray[x].xTaskNumber);
         }
     }
-    vPortFree(StatusArray); //ÊÍ·ÅÄÚ´æ
-    printf("/**************************½áÊø***************************/\r\n");
-    printf("°´ÏÂKEY_UP¼ü¼ÌĞø!\r\n\r\n\r\n");
+    vPortFree(StatusArray); //é‡Šæ”¾å†…å­˜
+    printf("/**************************ç»“æŸ***************************/\r\n");
+    printf("æŒ‰ä¸‹KEY_UPé”®ç»§ç»­!\r\n\r\n\r\n");
     while (KEY_Scan(0) != WKUP_PRES)
-        delay_ms(10); //µÈ´ıKEY_UP¼ü°´ÏÂ
+        delay_ms(10); //ç­‰å¾…KEY_UPé”®æŒ‰ä¸‹
 
-    //µÚ¶ş²½£ºº¯ÊıvTaskGetInfo()µÄÊ¹ÓÃ
+    //ç¬¬äºŒæ­¥ï¼šå‡½æ•°vTaskGetInfo()çš„ä½¿ç”¨
     TaskHandle_t TaskHandle;
     TaskStatus_t TaskStatus;
 
-    printf("/************µÚ¶ş²½£ºº¯ÊıvTaskGetInfo()µÄÊ¹ÓÃ**************/\r\n");
-    TaskHandle = xTaskGetHandle("led0_task"); //¸ù¾İÈÎÎñÃû»ñÈ¡ÈÎÎñ¾ä±ú¡£
-    //»ñÈ¡LED0_TaskµÄÈÎÎñĞÅÏ¢
-    vTaskGetInfo((TaskHandle_t)TaskHandle,    //ÈÎÎñ¾ä±ú
-                 (TaskStatus_t *)&TaskStatus, //ÈÎÎñĞÅÏ¢½á¹¹Ìå
-                 (BaseType_t)pdTRUE,          //ÔÊĞíÍ³¼ÆÈÎÎñ¶ÑÕ»ÀúÊ·×îĞ¡Ê£Óà´óĞ¡
-                 (eTaskState)eInvalid);       //º¯Êı×Ô¼º»ñÈ¡ÈÎÎñÔËĞĞ×³Ì¬
-    //Í¨¹ı´®¿Ú´òÓ¡³öÖ¸¶¨ÈÎÎñµÄÓĞ¹ØĞÅÏ¢¡£
-    printf("ÈÎÎñÃû:                %s\r\n", TaskStatus.pcTaskName);
-    printf("ÈÎÎñ±àºÅ:              %d\r\n", (int)TaskStatus.xTaskNumber);
-    printf("ÈÎÎñ×³Ì¬:              %d\r\n", TaskStatus.eCurrentState);
-    printf("ÈÎÎñµ±Ç°ÓÅÏÈ¼¶:        %d\r\n", (int)TaskStatus.uxCurrentPriority);
-    printf("ÈÎÎñ»ùÓÅÏÈ¼¶:          %d\r\n", (int)TaskStatus.uxBasePriority);
-    printf("ÈÎÎñ¶ÑÕ»»ùµØÖ·:        %#x\r\n", (int)TaskStatus.pxStackBase);
-    printf("ÈÎÎñ¶ÑÕ»ÀúÊ·Ê£Óà×îĞ¡Öµ:%d\r\n", TaskStatus.usStackHighWaterMark);
-    printf("/**************************½áÊø***************************/\r\n");
-    printf("°´ÏÂKEY_UP¼ü¼ÌĞø!\r\n\r\n\r\n");
+    printf("/************ç¬¬äºŒæ­¥ï¼šå‡½æ•°vTaskGetInfo()çš„ä½¿ç”¨**************/\r\n");
+    TaskHandle = xTaskGetHandle("led0_task"); //æ ¹æ®ä»»åŠ¡åè·å–ä»»åŠ¡å¥æŸ„ã€‚
+    //è·å–LED0_Taskçš„ä»»åŠ¡ä¿¡æ¯
+    vTaskGetInfo((TaskHandle_t)TaskHandle,    //ä»»åŠ¡å¥æŸ„
+                 (TaskStatus_t *)&TaskStatus, //ä»»åŠ¡ä¿¡æ¯ç»“æ„ä½“
+                 (BaseType_t)pdTRUE,          //å…è®¸ç»Ÿè®¡ä»»åŠ¡å †æ ˆå†å²æœ€å°å‰©ä½™å¤§å°
+                 (eTaskState)eInvalid);       //å‡½æ•°è‡ªå·±è·å–ä»»åŠ¡è¿è¡Œå£®æ€
+    //é€šè¿‡ä¸²å£æ‰“å°å‡ºæŒ‡å®šä»»åŠ¡çš„æœ‰å…³ä¿¡æ¯ã€‚
+    printf("ä»»åŠ¡å:                %s\r\n", TaskStatus.pcTaskName);
+    printf("ä»»åŠ¡ç¼–å·:              %d\r\n", (int)TaskStatus.xTaskNumber);
+    printf("ä»»åŠ¡å£®æ€:              %d\r\n", TaskStatus.eCurrentState);
+    printf("ä»»åŠ¡å½“å‰ä¼˜å…ˆçº§:        %d\r\n", (int)TaskStatus.uxCurrentPriority);
+    printf("ä»»åŠ¡åŸºä¼˜å…ˆçº§:          %d\r\n", (int)TaskStatus.uxBasePriority);
+    printf("ä»»åŠ¡å †æ ˆåŸºåœ°å€:        %#x\r\n", (int)TaskStatus.pxStackBase);
+    printf("ä»»åŠ¡å †æ ˆå†å²å‰©ä½™æœ€å°å€¼:%d\r\n", TaskStatus.usStackHighWaterMark);
+    printf("/**************************ç»“æŸ***************************/\r\n");
+    printf("æŒ‰ä¸‹KEY_UPé”®ç»§ç»­!\r\n\r\n\r\n");
     while (KEY_Scan(0) != WKUP_PRES)
-        delay_ms(10); //µÈ´ıKEY_UP¼ü°´ÏÂ
+        delay_ms(10); //ç­‰å¾…KEY_UPé”®æŒ‰ä¸‹
 
-    //µÚÈı²½£ºº¯ÊıeTaskGetState()µÄÊ¹ÓÃ
+    //ç¬¬ä¸‰æ­¥ï¼šå‡½æ•°eTaskGetState()çš„ä½¿ç”¨
     eTaskState TaskState;
     char TaskInfo[10];
-    printf("/***********µÚÈı²½£ºº¯ÊıeTaskGetState()µÄÊ¹ÓÃ*************/\r\n");
-    TaskHandle = xTaskGetHandle("query_task"); //¸ù¾İÈÎÎñÃû»ñÈ¡ÈÎÎñ¾ä±ú¡£
-    TaskState = eTaskGetState(TaskHandle);     //»ñÈ¡query_taskÈÎÎñµÄÈÎÎñ×³Ì¬
+    printf("/***********ç¬¬ä¸‰æ­¥ï¼šå‡½æ•°eTaskGetState()çš„ä½¿ç”¨*************/\r\n");
+    TaskHandle = xTaskGetHandle("query_task"); //æ ¹æ®ä»»åŠ¡åè·å–ä»»åŠ¡å¥æŸ„ã€‚
+    TaskState = eTaskGetState(TaskHandle);     //è·å–query_taskä»»åŠ¡çš„ä»»åŠ¡å£®æ€
     // memset(TaskInfo, 0, 10);
     switch ((int)TaskState)
     {
@@ -187,20 +186,20 @@ void query_task(void *pvParameters)
         sprintf(TaskInfo, "Invalid");
         break;
     }
-    printf("ÈÎÎñ×³Ì¬Öµ:%d,¶ÔÓ¦µÄ×³Ì¬Îª:%s\r\n", TaskState, TaskInfo);
-    printf("/**************************½áÊø**************************/\r\n");
-    printf("°´ÏÂKEY_UP¼ü¼ÌĞø!\r\n\r\n\r\n");
+    printf("ä»»åŠ¡å£®æ€å€¼:%d,å¯¹åº”çš„å£®æ€ä¸º:%s\r\n", TaskState, TaskInfo);
+    printf("/**************************ç»“æŸ**************************/\r\n");
+    printf("æŒ‰ä¸‹KEY_UPé”®ç»§ç»­!\r\n\r\n\r\n");
     while (KEY_Scan(0) != WKUP_PRES)
-        delay_ms(10); //µÈ´ıKEY_UP¼ü°´ÏÂ
+        delay_ms(10); //ç­‰å¾…KEY_UPé”®æŒ‰ä¸‹
 
-    //µÚËÄ²½£ºº¯ÊıvTaskList()µÄÊ¹ÓÃ
-    printf("/*************µÚÈı²½£ºº¯ÊıvTaskList()µÄÊ¹ÓÃ*************/\r\n");
-    vTaskList(InfoBuffer);        //»ñÈ¡ËùÓĞÈÎÎñµÄĞÅÏ¢
-    printf("%s\r\n", InfoBuffer); //Í¨¹ı´®¿Ú´òÓ¡ËùÓĞÈÎÎñµÄĞÅÏ¢
-    printf("/**************************½áÊø**************************/\r\n");
+    //ç¬¬å››æ­¥ï¼šå‡½æ•°vTaskList()çš„ä½¿ç”¨
+    printf("/*************ç¬¬ä¸‰æ­¥ï¼šå‡½æ•°vTaskList()çš„ä½¿ç”¨*************/\r\n");
+    vTaskList(InfoBuffer);        //è·å–æ‰€æœ‰ä»»åŠ¡çš„ä¿¡æ¯
+    printf("%s\r\n", InfoBuffer); //é€šè¿‡ä¸²å£æ‰“å°æ‰€æœ‰ä»»åŠ¡çš„ä¿¡æ¯
+    printf("/**************************ç»“æŸ**************************/\r\n");
     while (1)
     {
         LED_R_TogglePin();
-        vTaskDelay(1000); //ÑÓÊ±1s£¬Ò²¾ÍÊÇ1000¸öÊ±ÖÓ½ÚÅÄ
+        vTaskDelay(1000); //å»¶æ—¶1sï¼Œä¹Ÿå°±æ˜¯1000ä¸ªæ—¶é’ŸèŠ‚æ‹
     }
 }

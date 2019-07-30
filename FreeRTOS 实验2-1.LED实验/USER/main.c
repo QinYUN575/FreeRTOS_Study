@@ -5,113 +5,112 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-//ÈÎÎñÓÅÏÈ¼¶
-#define START_TASK_PRIO		1
-//ÈÎÎñ¶ÑÕ»´óĞ¡	
-#define START_STK_SIZE 		128  
-//ÈÎÎñ¾ä±ú
+//ä»»åŠ¡ä¼˜å…ˆçº§
+#define START_TASK_PRIO 1
+//ä»»åŠ¡å †æ ˆå¤§å°
+#define START_STK_SIZE 128
+//ä»»åŠ¡å¥æŸ„
 TaskHandle_t StartTask_Handler;
-//ÈÎÎñº¯Êı
+//ä»»åŠ¡å‡½æ•°
 void start_task(void *pvParameters);
 
-//ÈÎÎñÓÅÏÈ¼¶
-#define LED0_TASK_PRIO		2
-//ÈÎÎñ¶ÑÕ»´óĞ¡	
-#define LED0_STK_SIZE 		50  
-//ÈÎÎñ¾ä±ú
+//ä»»åŠ¡ä¼˜å…ˆçº§
+#define LED0_TASK_PRIO 2
+//ä»»åŠ¡å †æ ˆå¤§å°
+#define LED0_STK_SIZE 50
+//ä»»åŠ¡å¥æŸ„
 TaskHandle_t LED0Task_Handler;
-//ÈÎÎñº¯Êı
+//ä»»åŠ¡å‡½æ•°
 void led0_task(void *pvParameters);
 
-//ÈÎÎñÓÅÏÈ¼¶
-#define LED1_TASK_PRIO		3
-//ÈÎÎñ¶ÑÕ»´óĞ¡	
-#define LED1_STK_SIZE 		50  
-//ÈÎÎñ¾ä±ú
+//ä»»åŠ¡ä¼˜å…ˆçº§
+#define LED1_TASK_PRIO 3
+//ä»»åŠ¡å †æ ˆå¤§å°
+#define LED1_STK_SIZE 50
+//ä»»åŠ¡å¥æŸ„
 TaskHandle_t LED1Task_Handler;
-//ÈÎÎñº¯Êı
+//ä»»åŠ¡å‡½æ•°
 void led1_task(void *pvParameters);
 
-//ÈÎÎñÓÅÏÈ¼¶
-#define FLOAT_TASK_PRIO		4
-//ÈÎÎñ¶ÑÕ»´óĞ¡	
-#define FLOAT_STK_SIZE 		128
-//ÈÎÎñ¾ä±ú
+//ä»»åŠ¡ä¼˜å…ˆçº§
+#define FLOAT_TASK_PRIO 4
+//ä»»åŠ¡å †æ ˆå¤§å°
+#define FLOAT_STK_SIZE 128
+//ä»»åŠ¡å¥æŸ„
 TaskHandle_t FLOATTask_Handler;
-//ÈÎÎñº¯Êı
+//ä»»åŠ¡å‡½æ•°
 void float_task(void *pvParameters);
 
 int main(void)
 {
 
-    HAL_Init();                     //³õÊ¼»¯HAL¿â   
+    HAL_Init(); //åˆå§‹åŒ–HALåº“
     SystemClock_Config();
-		delay_init(80);                //³õÊ¼»¯ÑÓÊ±º¯Êı
-    LED_Init();                     //³õÊ¼»¯LED 
-    uart_init(115200);              //³õÊ¼»¯´®¿Ú
-	
-		printf("\r\n===========================================================\r\n");
-		printf("\r\n");
-		printf("    ***** FreeRTOS V10.0.1 *****\r\n");
-		printf("    Compile Time:%s, %s\r\n", __TIME__, __DATE__);
-		printf("    Author by QinYUN575\r\n");
-		printf("\r\n");
-		printf("===========================================================\r\n");
-		
-	
-    //´´½¨¿ªÊ¼ÈÎÎñ
-    xTaskCreate((TaskFunction_t )start_task,            //ÈÎÎñº¯Êı
-                (const char*    )"start_task",          //ÈÎÎñÃû³Æ
-                (uint16_t       )START_STK_SIZE,        //ÈÎÎñ¶ÑÕ»´óĞ¡
-                (void*          )NULL,                  //´«µİ¸øÈÎÎñº¯ÊıµÄ²ÎÊı
-                (UBaseType_t    )START_TASK_PRIO,       //ÈÎÎñÓÅÏÈ¼¶
-                (TaskHandle_t*  )&StartTask_Handler);   //ÈÎÎñ¾ä±ú              
-    vTaskStartScheduler();          //¿ªÆôÈÎÎñµ÷¶È
+    delay_init(80);    //åˆå§‹åŒ–å»¶æ—¶å‡½æ•°
+    LED_Init();        //åˆå§‹åŒ–LED
+    uart_init(115200); //åˆå§‹åŒ–ä¸²å£
+
+    printf("\r\n===========================================================\r\n");
+    printf("\r\n");
+    printf("    ***** FreeRTOS V10.0.1 *****\r\n");
+    printf("    Compile Time:%s, %s\r\n", __TIME__, __DATE__);
+    printf("    Author by QinYUN575\r\n");
+    printf("\r\n");
+    printf("===========================================================\r\n");
+
+    //åˆ›å»ºå¼€å§‹ä»»åŠ¡
+    xTaskCreate((TaskFunction_t)start_task,          //ä»»åŠ¡å‡½æ•°
+                (const char *)"start_task",          //ä»»åŠ¡åç§°
+                (uint16_t)START_STK_SIZE,            //ä»»åŠ¡å †æ ˆå¤§å°
+                (void *)NULL,                        //ä¼ é€’ç»™ä»»åŠ¡å‡½æ•°çš„å‚æ•°
+                (UBaseType_t)START_TASK_PRIO,        //ä»»åŠ¡ä¼˜å…ˆçº§
+                (TaskHandle_t *)&StartTask_Handler); //ä»»åŠ¡å¥æŸ„
+    vTaskStartScheduler();                           //å¼€å¯ä»»åŠ¡è°ƒåº¦
 }
 
-//¿ªÊ¼ÈÎÎñÈÎÎñº¯Êı
+//å¼€å§‹ä»»åŠ¡ä»»åŠ¡å‡½æ•°
 void start_task(void *pvParameters)
 {
-    taskENTER_CRITICAL();           //½øÈëÁÙ½çÇø
-    //´´½¨LED0ÈÎÎñ
-    xTaskCreate((TaskFunction_t )led0_task,     	
-                (const char*    )"led0_task",   	
-                (uint16_t       )LED0_STK_SIZE, 
-                (void*          )NULL,				
-                (UBaseType_t    )LED0_TASK_PRIO,	
-                (TaskHandle_t*  )&LED0Task_Handler);   
-    //´´½¨LED1ÈÎÎñ
-    xTaskCreate((TaskFunction_t )led1_task,     
-                (const char*    )"led1_task",   
-                (uint16_t       )LED1_STK_SIZE, 
-                (void*          )NULL,
-                (UBaseType_t    )LED1_TASK_PRIO,
-                (TaskHandle_t*  )&LED1Task_Handler);        
-    //¸¡µã²âÊÔÈÎÎñ
-    xTaskCreate((TaskFunction_t )float_task,     
-                (const char*    )"float_task",   
-                (uint16_t       )FLOAT_STK_SIZE, 
-                (void*          )NULL,
-                (UBaseType_t    )FLOAT_TASK_PRIO,
-                (TaskHandle_t*  )&FLOATTask_Handler);  
-    vTaskDelete(StartTask_Handler); //É¾³ı¿ªÊ¼ÈÎÎñ
-    taskEXIT_CRITICAL();            //ÍË³öÁÙ½çÇø
+    taskENTER_CRITICAL(); //è¿›å…¥ä¸´ç•ŒåŒº
+    //åˆ›å»ºLED0ä»»åŠ¡
+    xTaskCreate((TaskFunction_t)led0_task,
+                (const char *)"led0_task",
+                (uint16_t)LED0_STK_SIZE,
+                (void *)NULL,
+                (UBaseType_t)LED0_TASK_PRIO,
+                (TaskHandle_t *)&LED0Task_Handler);
+    //åˆ›å»ºLED1ä»»åŠ¡
+    xTaskCreate((TaskFunction_t)led1_task,
+                (const char *)"led1_task",
+                (uint16_t)LED1_STK_SIZE,
+                (void *)NULL,
+                (UBaseType_t)LED1_TASK_PRIO,
+                (TaskHandle_t *)&LED1Task_Handler);
+    //æµ®ç‚¹æµ‹è¯•ä»»åŠ¡
+    xTaskCreate((TaskFunction_t)float_task,
+                (const char *)"float_task",
+                (uint16_t)FLOAT_STK_SIZE,
+                (void *)NULL,
+                (UBaseType_t)FLOAT_TASK_PRIO,
+                (TaskHandle_t *)&FLOATTask_Handler);
+    vTaskDelete(StartTask_Handler); //åˆ é™¤å¼€å§‹ä»»åŠ¡
+    taskEXIT_CRITICAL();            //é€€å‡ºä¸´ç•ŒåŒº
 }
 
-//LED0ÈÎÎñº¯Êı 
+//LED0ä»»åŠ¡å‡½æ•°
 void led0_task(void *pvParameters)
 {
-    while(1)
+    while (1)
     {
         LED_R_TogglePin();
         vTaskDelay(500);
     }
-}   
+}
 
-//LED1ÈÎÎñº¯Êı
+//LED1ä»»åŠ¡å‡½æ•°
 void led1_task(void *pvParameters)
 {
-    while(1)
+    while (1)
     {
         LED_G_TogglePin();
         vTaskDelay(200);
@@ -120,17 +119,14 @@ void led1_task(void *pvParameters)
     }
 }
 
-//¸¡µã²âÊÔÈÎÎñ
+//æµ®ç‚¹æµ‹è¯•ä»»åŠ¡
 void float_task(void *pvParameters)
 {
-	static float float_num=0.00;
-	while(1)
-	{
-		float_num+=0.01f;
-		printf("float_numµÄÖµÎª: %.4f\r\n",float_num);
-		vTaskDelay(1000);
-	}
+    static float float_num = 0.00;
+    while (1)
+    {
+        float_num += 0.001f;
+        printf("float_num: %.4f\r\n", float_num);
+        vTaskDelay(1000);
+    }
 }
-
-
-

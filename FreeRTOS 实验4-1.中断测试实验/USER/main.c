@@ -6,60 +6,60 @@
 #include "task.h"
 #include "timer.h"
 
-//ÈÎÎñÓÅÏÈ¼¶
+//ä»»åŠ¡ä¼˜å…ˆçº§
 #define START_TASK_PRIO         1
-//ÈÎÎñ¶ÑÕ»´óĞ¡
+//ä»»åŠ¡å †æ ˆå¤§å°
 #define START_STK_SIZE          256
-//ÈÎÎñ¾ä±ú
+//ä»»åŠ¡å¥æŸ„
 TaskHandle_t StartTask_Handler;
-//ÈÎÎñº¯Êı
+//ä»»åŠ¡å‡½æ•°
 void start_task(void *pvParameters);
 
-//ÈÎÎñÓÅÏÈ¼¶
+//ä»»åŠ¡ä¼˜å…ˆçº§
 #define INTERRUPT_TASK_PRIO     2
-//ÈÎÎñ¶ÑÕ»´óĞ¡
+//ä»»åŠ¡å †æ ˆå¤§å°
 #define INTERRUPT_STK_SIZE      256
-//ÈÎÎñ¾ä±ú
+//ä»»åŠ¡å¥æŸ„
 TaskHandle_t INTERRUPTTask_Handler;
-//ÈÎÎñº¯Êı
+//ä»»åŠ¡å‡½æ•°
 void interrupt_task(void *p_arg);
 
 int main(void)
 {
-    HAL_Init();                     //³õÊ¼»¯HAL¿â
-    SystemClock_Config();           //ÉèÖÃÊ±ÖÓ, 80Mhz
-    delay_init(180);                //³õÊ¼»¯ÑÓÊ±º¯Êı
-    LED_Init();                     //³õÊ¼»¯LED
-    uart_init(115200);              //³õÊ¼»¯´®¿Ú
-    TIM3_Init(10000-1,9000-1);      //³õÊ¼»¯¶¨Ê±Æ÷3£¬¶¨Ê±ÖÜÆÚ1S
-    TIM5_Init(10000-1,9000-1);      //³õÊ¼»¯¶¨Ê±Æ÷5£¬¶¨Ê±ÖÜÆÚ1S
+    HAL_Init();                     //åˆå§‹åŒ–HALåº“
+    SystemClock_Config();           //è®¾ç½®æ—¶é’Ÿ, 80Mhz
+    delay_init(180);                //åˆå§‹åŒ–å»¶æ—¶å‡½æ•°
+    LED_Init();                     //åˆå§‹åŒ–LED
+    uart_init(115200);              //åˆå§‹åŒ–ä¸²å£
+    TIM3_Init(10000-1,9000-1);      //åˆå§‹åŒ–å®šæ—¶å™¨3ï¼Œå®šæ—¶å‘¨æœŸ1S
+    TIM5_Init(10000-1,9000-1);      //åˆå§‹åŒ–å®šæ—¶å™¨5ï¼Œå®šæ—¶å‘¨æœŸ1S
 
-    //´´½¨¿ªÊ¼ÈÎÎñ
-    xTaskCreate((TaskFunction_t )start_task,            //ÈÎÎñº¯Êı
-                (const char*    )"start_task",          //ÈÎÎñÃû³Æ
-                (uint16_t       )START_STK_SIZE,        //ÈÎÎñ¶ÑÕ»´óĞ¡
-                (void*          )NULL,                  //´«µİ¸øÈÎÎñº¯ÊıµÄ²ÎÊı
-                (UBaseType_t    )START_TASK_PRIO,       //ÈÎÎñÓÅÏÈ¼¶
-                (TaskHandle_t*  )&StartTask_Handler);   //ÈÎÎñ¾ä±ú
-    vTaskStartScheduler();          //¿ªÆôÈÎÎñµ÷¶È
+    //åˆ›å»ºå¼€å§‹ä»»åŠ¡
+    xTaskCreate((TaskFunction_t )start_task,            //ä»»åŠ¡å‡½æ•°
+                (const char*    )"start_task",          //ä»»åŠ¡åç§°
+                (uint16_t       )START_STK_SIZE,        //ä»»åŠ¡å †æ ˆå¤§å°
+                (void*          )NULL,                  //ä¼ é€’ç»™ä»»åŠ¡å‡½æ•°çš„å‚æ•°
+                (UBaseType_t    )START_TASK_PRIO,       //ä»»åŠ¡ä¼˜å…ˆçº§
+                (TaskHandle_t*  )&StartTask_Handler);   //ä»»åŠ¡å¥æŸ„
+    vTaskStartScheduler();          //å¼€å¯ä»»åŠ¡è°ƒåº¦
 }
 
-//¿ªÊ¼ÈÎÎñÈÎÎñº¯Êı
+//å¼€å§‹ä»»åŠ¡ä»»åŠ¡å‡½æ•°
 void start_task(void *pvParameters)
 {
-    taskENTER_CRITICAL();           //½øÈëÁÙ½çÇø
-    //´´½¨ÖĞ¶Ï²âÊÔÈÎÎñ
-    xTaskCreate((TaskFunction_t )interrupt_task,            //ÈÎÎñº¯Êı
-                (const char*    )"interrupt_task",          //ÈÎÎñÃû³Æ
-                (uint16_t       )INTERRUPT_STK_SIZE,        //ÈÎÎñ¶ÑÕ»´óĞ¡
-                (void*          )NULL,                      //´«µİ¸øÈÎÎñº¯ÊıµÄ²ÎÊı
-                (UBaseType_t    )INTERRUPT_TASK_PRIO,       //ÈÎÎñÓÅÏÈ¼¶
-                (TaskHandle_t*  )&INTERRUPTTask_Handler);   //ÈÎÎñ¾ä±ú
-    vTaskDelete(StartTask_Handler); //É¾³ı¿ªÊ¼ÈÎÎñ
-    taskEXIT_CRITICAL();            //ÍË³öÁÙ½çÇø
+    taskENTER_CRITICAL();           //è¿›å…¥ä¸´ç•ŒåŒº
+    //åˆ›å»ºä¸­æ–­æµ‹è¯•ä»»åŠ¡
+    xTaskCreate((TaskFunction_t )interrupt_task,            //ä»»åŠ¡å‡½æ•°
+                (const char*    )"interrupt_task",          //ä»»åŠ¡åç§°
+                (uint16_t       )INTERRUPT_STK_SIZE,        //ä»»åŠ¡å †æ ˆå¤§å°
+                (void*          )NULL,                      //ä¼ é€’ç»™ä»»åŠ¡å‡½æ•°çš„å‚æ•°
+                (UBaseType_t    )INTERRUPT_TASK_PRIO,       //ä»»åŠ¡ä¼˜å…ˆçº§
+                (TaskHandle_t*  )&INTERRUPTTask_Handler);   //ä»»åŠ¡å¥æŸ„
+    vTaskDelete(StartTask_Handler); //åˆ é™¤å¼€å§‹ä»»åŠ¡
+    taskEXIT_CRITICAL();            //é€€å‡ºä¸´ç•ŒåŒº
 }
 
-//ÖĞ¶Ï²âÊÔÈÎÎñº¯Êı
+//ä¸­æ–­æµ‹è¯•ä»»åŠ¡å‡½æ•°
 void interrupt_task(void *pvParameters)
 {
     static u32 total_num=0;
@@ -68,10 +68,10 @@ void interrupt_task(void *pvParameters)
         total_num+=1;
         if(total_num==5)
         {
-            printf("¹Ø±ÕÖĞ¶Ï.............\r\n");
-            portDISABLE_INTERRUPTS();               //¹Ø±ÕÖĞ¶Ï
-            delay_xms(5000);                        //ÑÓÊ±5s
-            printf("´ò¿ªÖĞ¶Ï.............\r\n");    //´ò¿ªÖĞ¶Ï
+            printf("å…³é—­ä¸­æ–­.............\r\n");
+            portDISABLE_INTERRUPTS();               //å…³é—­ä¸­æ–­
+            delay_xms(5000);                        //å»¶æ—¶5s
+            printf("æ‰“å¼€ä¸­æ–­.............\r\n");    //æ‰“å¼€ä¸­æ–­
             portENABLE_INTERRUPTS();
         }
         LED_B_TogglePin();
