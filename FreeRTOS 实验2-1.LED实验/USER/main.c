@@ -4,6 +4,7 @@
 #include "led.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include <stdio.h>
 
 //任务优先级
 #define START_TASK_PRIO 1

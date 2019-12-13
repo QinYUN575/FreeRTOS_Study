@@ -125,7 +125,7 @@ void query_task(void *pvParameters)
         {
             //通过串口打印出获取到的系统任务的有关信息，比如任务名称、
             //任务优先级和任务编号。
-            printf("%s\t\t%d\t\t\t%d\t\t\t\r\n",
+            printf("%-15s\t\t%d\t\t\t%d\t\t\t\r\n",
                    StatusArray[x].pcTaskName,
                    (int)StatusArray[x].uxCurrentPriority,
                    (int)StatusArray[x].xTaskNumber);
@@ -163,11 +163,14 @@ void query_task(void *pvParameters)
 
     //第三步：函数eTaskGetState()的使用
     eTaskState TaskState;
-    char TaskInfo[10];
+    char TaskInfo[20];
     printf("/***********第三步：函数eTaskGetState()的使用*************/\r\n");
     TaskHandle = xTaskGetHandle("query_task"); //根据任务名获取任务句柄。
-    TaskState = eTaskGetState(TaskHandle);     //获取query_task任务的任务壮态
-    // memset(TaskInfo, 0, 10);
+    if (TaskHandle == NULL) {
+        printf("error!\r\n");
+    }
+    TaskState = eTasskGetState(TaskHandle);     //获取query_task任务的任务壮态
+    memset(TaskInfo, 0, 20);
     switch ((int)TaskState)
     {
     case 0:
